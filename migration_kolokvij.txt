@@ -1,0 +1,160 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('invoices', function (Blueprint $table) {
+            $table->comment('');
+            $table->integer('id')->primary();
+            $table->dateTime('datum_izdavanja');
+			$table->string('naslov_racuna', 50);
+			$table->foreign(['izdao_id'], FK_1)->references(['id'])->on('users');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('invoices');
+    }
+};
+
+
+
+
+
+
+
+
+
+
+2. Opiši pojam MVC.
+MVC je akronim za Model, View i Controler. 
+Model služi za upravljanje temeljnim ponašanjima aplikacija i podacima aplikacije. 
+Može se javljati na zahtjeve za pristup informacijama, javljati se na instrukcije za promjenu stanja informacija itd. 
+View je zaslužan za user interface element u aplikaciji. 
+Koristi podatke iz modela koje izmjenjuje tako da su ispravni za koristiti u user interface-u. 
+Controler se koristi za kontroliranje akcija i azurira model ako je potrebno
+
+
+
+Model je prikaz instance ili objekta iz stvarnog života u našoj bazi koda. 
+View predstavlja sučelje sa kojim korisnik komunicira s aplikacijom. 
+Kada korisnik poduzme radnju, Controler upravlja radnjom i azurira model ak je to potrebno.
+
+3. Opiši proces zahtjeva unutar Laravela od ruta do pogleda.
+
+Nakon što su postavljeni modeli, views i controlers, sve te komponente potrebno je 
+povezati, i za to služi tok route. U Laravelu je to omogućeno korištenjem klase 
+Route. Unutar mape routes nalaze se datoteke koje Laravel sam učitava, a to su api.php, 
+channels.php, console.php i web.php. Pri izradi jednostavnijih aplikacija, najčešće se 
+uređuje samo web.php datoteka. Rute koje se definiraju u toj datoteci dostupne su 
+unosom definiranog URL-a u preglednik.
+
+
+
+4. Opiši pojam ORM.
+Object-relational mapping je mehanizam koji omogucuje adresiranje, pristup i manipuliranje objektima bez potrebe za razmatranjem nacina na koji su ti objekti povezani sa svojim izvornim podacima
+
+5. Što je Bootstrap?
+frontend development framework koji se koristi za izradu webstranica i web aplikacija
+
+6. Napiši 3 komponente iz sustava Bootstrap po izboru.
+alerts, buttons, nav, forms, spinner
+
+7. Koje su novosti (nove oznake) u HTML 5?
+<command> <article> <details> <embed> <figure> <header> 
+
+8. Opiši zašto se koriste migracijske skripte? Koje su prednosti?
+Migracijske skripte omogucavaju timu mijenjanje i dijeljenje sheme baze podataka aplikacije  
+
+9. U kojoj datoteci se pohranjuju podaci za spajanje na bazu?
+.env
+
+10. koja php artisan naredba pokrece laravel projekt
+php artisan serve
+
+11. koja naredba kreira laravel project
+composer create-project laravel/laravel example-app
+
+12. Kako bi pronasli popis svih php artisan naredbi
+php artisan list
+
+13. Opiši primjerom PHP klasu? Što je nasljedivanje?
+
+
+Klasa ili razred je nacrt za jedan ili proizvoljni broj objekata koji imaju slične karakteristike 
+definirane unutar te klase.
+Deklariramo klasu pod imenom Fruit koja se sastoji od svojstva jednog svojstva ($name) 
+i dvije metode set_name() i get_name() za postavljanje i dobivanje svojstva $name.
+
+<?php
+class Fruit {
+ public $name;
+ function set_name($name) {
+ $this->name = $name;
+ }
+ function get_name() {
+ return $this->name;
+ }
+}
+?>
+
+
+
+Nasljeđivanje omogućuje da jedna klasa naslijedi sve metode, karakteristike i ponašanje 
+neke druge klase. Klase nasljeđuju pomoću riječi extends. 
+
+
+
+
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('invoices', function (Blueprint $table) {
+            $table->id();
+            $table->dateTime('datum_izdavanja');
+            $table->string('naslov_racuna', 50);
+
+            $table->foreignId('izdao_id')->nullable()->constrained('users')->onDelete('set null');
+
+           
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('invoices');
+    }
+};
